@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+    
+    .home{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20%;
+        flex-direction: column;
+    }
+
+    Body{
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #eaddcf 100%);
+    background-image: linear-gradient(to top,#232946 0%, #20243e 95%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    }
+
+    .initial{
+
+        background-color: #50111b;
+        color: white;
+        font-size: 1.2rem;
+        font-variant: small-caps;
+        font-weight: 600;
+
+    }
+    .para{
+        font-size: 2rem;
+        color: #E3FDF5;
+        font-family: monospace;
+    }
+    .initial:hover{
+        box-shadow: 2px 2px rgba(255, 255, 255, 0.71);
+        cursor: pointer;
+    }
+    .initial a{
+        text-decoration: none;
+        color:#ffffff;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+    footer div{
+        position: fixed;
+        bottom: 10px;
+        left: 45%;
+        font-weight: 600;
+        font-family: monospace;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <div class="home">
+        <p class="para">Add your attendance for today</p>
+    
+        <button class="initial" id="initial" type="button" >Add my attendance. </button>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
+          authDomain: "attendance-d2219.firebaseapp.com",
+          projectId: "attendance-d2219",
+          storageBucket: "attendance-d2219.appspot.com",
+          messagingSenderId: "997668470283",
+          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
+          measurementId: "G-TS4V0HVQ9L"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();  
+    
+
+
+  var database = firebase.database();
+
+  var attendanceButton = document.getElementById('initial');
+  attendanceButton.addEventListener('click', function() {
+    var studentRef = database.ref("UserRegister/");
+    studentRef.once('Attendance', function(snapshot) {
+      var attendance = snapshot.val() || 0;
+      attendance += 1;
+      studentRef.set(attendance);
+      alert("attendance added")
+    });
+  });
+
+
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40vw;
+            width: 90vw;
+            margin: 0px;
+        }
+        input:disabled{
+             display: none;
+        }
+        .mb-5{
+            padding: 20px 20px;
+            border-top: 3.5px solid rgba(58, 142, 195, 0.863);
+            margin-top: 15vh;
+            margin-left: 10vw;
+        }
+        @media(max-width:500px){
+            .mb-5{
+                margin-top: 67vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mb-5">
+        <h3 class="mb-3">Sign Up</h3>
+        <input type="text" placeholder="Username" id="userInp" class="form-control mb-3">
+        <input type="email" placeholder="Email" id="emailInp" class="form-control mb-3">
+        <input type="number" placeholder="ID" id="idInp" class="form-control mb-3">
+        <input type="text" placeholder="Domain" id="domBox" class="form-control mb-3">
+        <input type="password" placeholder="Password" id="passInp" class="form-control mb-3">
+        <input type="number" placeholder="Attendance" value="0" id="num" class="form-control mb-3" disabled>
+        <button type="submit" id="sub_btn" class="btn btn-outline-primary mb-3">Sign Up</button>
+        <a href="user-login.html" class="badge badge-secondary py-1 w-100">Already Have an Account</a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
+          authDomain: "attendance-d2219.firebaseapp.com",
+          projectId: "attendance-d2219",
+          storageBucket: "attendance-d2219.appspot.com",
+          messagingSenderId: "997668470283",
+          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
+          measurementId: "G-TS4V0HVQ9L"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const auth = getAuth();
+
+
+
+      sub_btn.addEventListener("click",(e)=>{
+    const email=document.getElementById("emailInp").value;
+    const pass =document.getElementById("passInp").value;
+    const username=document.getElementById("userInp").value;
+    const dom = document.getElementById("domBox").value;
+    const id=document.getElementById("idInp").value;
+    const num=document.getElementById("num").value;
+      
+    
+    createUserWithEmailAndPassword(auth,email,pass)
+
+        .then((userCredential)=>{
+            const user = userCredential.user;
+            set(ref(db,"UserRegister/"+username),{
+                Username:username,
+                Email:email,
+                Domain:dom,
+                ID:id,
+                Attendance:num,
+            
+            })
+            alert("You are signed up!");
+            // window.location.href="user-login.html"
+
+        
+        }
+
+        )
+
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage)
+          }); 
+
+
+    });
+
+
+
+
+    </script>
+
+</body>
+</html>

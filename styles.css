@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+.heading{
+    font-size: 3.6em;
+    color: rgb(0, 0, 0);
+    font-variant: small-caps;
+    font-family: 'Black Ops One', cursive;
+    font-weight: 400;
+    margin-top: 200px;
+    word-spacing: 4px;
+    margin-left: 37vw;
+
+}
+
+.heading span{
+    color: rgb(136, 31, 31);
+}
+.initial{
+    margin-left:45vw ;
+    margin-top: 5%;
+    padding: 10px 47px;
+    background-color: rgba(169, 56, 56, 0.863);
+    font-size: 1.2rem;
+    font-variant: small-caps;
+    font-weight: 600;
+
+}
+.initial:hover{
+    background-color: rgba(111, 29, 29, 0.863);
+    cursor: pointer;
+    transition: 100ms;
+}
+.initial a{
+    text-decoration: none;
+    color:#ffffff;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+footer div{
+    position: fixed;
+    bottom: 10px;
+    left: 46%;
+    font-weight: 600;
+    font-family: monospace;
+    color: rgb(0, 0, 0);
+    
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+@media(max-width:500px){
+    .heading{
+        font-size: 3rem;
+        margin-top: 26vh;
+        word-spacing: 4px;
+        margin-left: 10vw;
+    
+    }
+    .initial{
+        margin-left:27vw ;
+        margin-top: 3%;
+        font-size: 1.2rem;
+        font-variant: small-caps;
+        font-weight: 600;
+    
+    }
+    footer div{
+        bottom: 20vh;
+        left: 30%;
+        font-weight: 600;
+        font-family: monospace;
+        color: rgb(0, 0, 0);
+        
+    }
+
+}

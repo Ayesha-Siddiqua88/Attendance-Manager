@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+        
+        .home{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15%;
+            flex-direction: column;
+        }
+
+    
+        .initial{
+            
+            background-color: rgba(58, 142, 195, 0.863);
+            border: none;
+            font-size: 1rem;
+            padding: 5px 8px;
+            font-variant: small-caps;
+            font-weight: 600;
+            border-radius: 12px;
+    
+        }
+        input{
+            height: 28px;
+            width: 15rem;
+            font-size: 1rem;
+
+        }
+        #name:focus{
+            border: none;
+            outline: 3px solid rgb(2, 2, 2);;
+        }
+        .para{
+            font-size: 1.9rem;
+            font-variant: small-caps;
+            font-family: monospace;
+            font-weight: 550;
+            letter-spacing: 2px;
+        }
+        .initial:hover{
+            background-color: rgba(34, 85, 116, 0.863);
+            cursor: pointer;
+        }
+        .initial{
+            margin-top: 20px;
+        }
+        .initial a{
+            text-decoration: none;
+            color:#ffffff;
+            font-size: 1.2em;
+            font-weight: 600;
+            font-variant: small-caps;
+        }
+      
+
+        @media (max-width:500px){
+            .para{
+                font-size: 1.5rem;
+                height: 50px;
+
+            }
+            .home{
+                margin-top: 27vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="home">
+        <p class="para">add your attendance for today</p>
+    
+        <input placeholder=" enter username" id="name">
+        <button id="attendance_btn" class="initial"><a >add my attendance</a></button>
+   </div>
+   <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyDMn0WncLuRWMLPdSM97POm_suyO9HAqLM",
+          authDomain: "attendance-d2219.firebaseapp.com",
+          projectId: "attendance-d2219",
+          storageBucket: "attendance-d2219.appspot.com",
+          messagingSenderId: "997668470283",
+          appId: "1:997668470283:web:aaaf5a6c423d1dd348910e",
+          measurementId: "G-TS4V0HVQ9L"
+        };
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const auth = getAuth();
+           
+const name=document.getElementById("name")
+      
+   
+    function LikeButton() {
+    const dbref = ref(db);
+
+    get(child(dbref, "UserRegister/"+name.value)).then((snapshot)=>{
+        if(snapshot.exists()){
+            var val = snapshot.val().Attendance;
+            update(ref(db, "UserRegister/"+name.value),{
+                Attendance: Number(val) + 1,
+            })
+            .then(()=>{
+                alert("Your attendance has been added for today!!");
+                window.location.href="user-login.html"
+  
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error="+error);
+            });
+        }
+        else{
+            alert("No data found");
+        }
+     
+    })
+    .catch((error)=>{
+        alert("unsuccessful, error="+error);
+    });
+    
+  
+}
+
+const button=document.getElementById("attendance_btn")
+    button.addEventListener("click",LikeButton)
+
+
+    
+
+</script>
+</body>
+</html>
