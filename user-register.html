@@ -76,7 +76,14 @@
     const dom = document.getElementById("domBox").value;
     const id=document.getElementById("idInp").value;
     const num=document.getElementById("num").value;
-      
+
+
+    const emailRegex = /^(.+@mjcollege.ac.in)$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById("imp").style.borderColor="red"
+        alert("Please enter a valid email address of the form ----@mjcollege.ac.in");
+    return;
+   }
     
     createUserWithEmailAndPassword(auth,email,pass)
 
@@ -84,7 +91,7 @@
             const user = userCredential.user;
             set(ref(db,"UserRegister/"+username),{
                 Username:username,
-                Email:email,
+                Email:emailRegex,
                 Domain:dom,
                 ID:id,
                 Attendance:num,
@@ -92,8 +99,6 @@
             })
             alert("You are signed up!");
             // window.location.href="user-login.html"
-
-        
         }
 
         )
