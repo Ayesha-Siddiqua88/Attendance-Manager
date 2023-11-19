@@ -29,7 +29,7 @@
         var stdNo = 0;
         var tbody = document.getElementById('tbody1');
 
-        function AddItemToTable(email, name, id, dom, num){
+        function AddItemToTable(email, name, id, dom, attendance){
 
             let trow = document.createElement("tr");
 
@@ -47,8 +47,16 @@
             td3.innerHTML = name;
             td4.innerHTML = id;
             td5.innerHTML = dom;
-            td6.innerHTML = num;
 
+            var totalClasses = 100; 
+            var attendancePercentage = (attendance / totalClasses) * 100;
+            
+            if (isNaN(attendancePercentage) || attendancePercentage === undefined) {
+               td6.innerHTML = "Not attended";
+            } 
+            else {
+               td6.innerHTML = attendancePercentage.toFixed(2) + "%";
+            }
 
             trow.appendChild(td1);
             trow.appendChild(td2);
@@ -65,7 +73,7 @@
                 stdNo=0;
                 tbody.innerHTML= " ";
                 TheStudent.forEach(elements => {
-                    AddItemToTable(elements.Email,elements.ID,elements.Username,elements.Domain,elements.Attendance);  //,elements.Domain
+                    AddItemToTable(elements.Email,elements.ID,elements.Username,elements.Domain,elements.Attendance); 
                 });
             }     
     
@@ -90,24 +98,7 @@
         const analytics = getAnalytics(app);
         const db = getDatabase(app);
         const auth = getAuth();
-           
-
-              // GETTING DATA
-
-            // function GetAllDataOnce(){
-            //     const dbRef=ref(db);
-
-            //     get(child(dbRef,"TheStudents/"))  
-
-            //     .then((snapshot)=>{
-            //         var students =[];
-            //          snapshot.forEach(childSnapshot => {
-            //             students.push(childSnapshot.val());
-            //          });
-
-            //          AddAllItemsToTable(students);
-            //     })
-            // }
+     
          var newPath="UserRegister/";
 
 
